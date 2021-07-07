@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+<nav class="navbar navbar-dark bg-dark" style="margin-bottom:1rem">
+    <a class="navbar-brand" style="color: orange">Welcome,{{username}}</a>
+    <!--<form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>-->
+    <a class="fw-bold" href="{% url 'index' %}" style="color:white;font-size:25px; display:block"> Expiry Date Tracker </a>
+    <a class="btn btn-danger" href="{% url 'userlogout' %}" style="color: black;margin-right:2rem;"> Logout </a>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'userhome' %}"><i class="fa fa-fw fa-user"></i>Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'userhome' %}">Current List</a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'userhome' %}">New Entry</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'notification' %}">Notifications ()</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'feed' %}">Feed</a>
+          </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+{% for msg in messages %}
+    <p style="text-align: center; color: yellow">{{msg}}</p>
+{% endfor %}
+
+
+
+<div class="container table-responsive" style="display: block, margin-bottom:5rem">
+    <p class="fw-bold display-3" style="text-align: center; margin-top:2rem"> Products </p>
+<table  class="table table-light table-hover table-sm align-middle" style="width:90%; margin-bottom:5rem">
+    <thead class="table-dark">
+    <tr>
+        <th> Name </th>
+        <th class="space"></th>
+        <th>UserID</th>
+        <th class="space"></th>
+        <th>Product Name</th>
+        <th class="space"></th>
+        <th>Date</th>
+        <th class="space"></th>
+        <th>Product Images</th>
+        <th class="space"></th>
+        <th class="space"></th>
+        <th>                   </th>
+        <th class="space"></th>
+        <th>Contact</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for own in ownInfo %}
+    {% for pro in productInfo %}
+    {% if own.username == pro.uname and pro.sharing == 1 %}
+    <tr>
+        <td>{{own.name}}, {{own.state}}</td>
+        <td class="space"></td>
+        <td>{{own.username}}</td>
+        <td class="space"></td>
+        <td>{{pro.pname}}</td>
+        <td class="space"></td>
+        <td>{{pro.pdate}}</td>
+        <td class="space"></td>
+        {% for i in allprod_list %}
+        {% if pro.uname in i %}
+        {% if pro.pname in i %}
+        <td>
+            {% if '_0' in i %}
+            <img src="{% static 'users/' %}{{destpart}}{{i}}"  class="card-img-top" alt="{{destpart}}{{i}}" border=1 height=130 width=300/>
+        </td>
+        <td class="space"></td>
+        <td>
+            {% elif '_1' in i %}
+            <img src="{% static 'users/' %}{{destpart}}{{i}}" class="card-img-top"  alt="{{destpart}}{{i}}" border=1 height=130 width=300/>
+        </td>
+        <td class="space"></td>
+            {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        <td><a href="{% url 'contact' own.name %}" class="btn btn-primary">Contact</a></td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}

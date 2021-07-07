@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content%}
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand">Welcome, Admin</a>
+    <!--<form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>-->
+      <a class="btm btn-danger" href="{% url 'adminlogout' %}" style="color: black;margin-right:2rem;"> Logout </a>
+</nav>
+
+<form method="POST" action="{% url 'addingcustomers' %}">
+    {% csrf_token %}
+    <p class="fw-bold" style="text-align: center; margin-top:3rem"> Customer Details</p>
+    <div class="container" style="width: 330px;display:block; margin:auto; margin-top:2rem; margin-bottom: 3rem">
+        <input type="text" class="form-control" placeholder="Name" name="cusname" style="width: 200px;display:block;margin:auto; margin-bottom:1rem;">
+        <input type="text" class="form-control" placeholder="UserID" name="cusid" style="width: 200px;display:block;margin:auto; margin-bottom:1rem;">
+        <input type="text" class="form-control" placeholder="State" name="cusstate" style="width: 200px;display:block;margin:auto; margin-bottom:1rem;">
+        <input type="email" class="form-control" placeholder="Email" name="cusemail" style="width: 200px;display:block;margin:auto; margin-bottom:1rem;">
+        <input type="submit" style="display: block; margin:auto" value="Search" name="" class="btn btn-success">
+    </div>
+    <div class="container-fluid">
+        <p class="fw-bold" style="text-align: center; margin-top:2rem"> Searched Customers</p>
+        <table style="width:50%;">
+        <tr>
+            <th>Name</th>
+            <th>UserID</th>
+            <th>Email</th>
+            <th>Contact Number</th>
+            <th>Place</th>
+            <th>Delete</th>
+        </tr>
+        {% for u in usr %}
+            {% if u.name == name or u.email == mail or u.username == userid or u.state == state %}
+        <tr>
+            <td>{{u.name}}</td>
+            <td>{{u.username}}</td>
+            <td>{{u.email}}</td>
+            <td>{{u.contact}}</td>
+            <td>{{u.state}}, {{u.country}}</td>
+            <td><a href="{% url 'deletecustomer' u.id %}" class="btn btn-danger">delete</a></td>
+        </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    </div>
+</form>
+
+<div class="container" style="display: block, margin-bottom: 5rem">
+    <p class="fw-bold" style="text-align: center; margin-top:2rem"> All Customer</p>
+<table style="width:50%;">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Contact Number</th>
+        <th>Place</th>
+        <th>Delete</th>
+    </tr>
+    {% for customer in customers %}
+    <tr>
+        <td>{{customer.name}}</td>
+        <td>{{customer.email}}</td>
+        <td>{{customer.contact}}</td>
+        <td>{{customer.state}}, {{customer.country}}</td>
+        <td><a href="{% url 'deletecustomer' customer.id %}" class="btn btn-danger">delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

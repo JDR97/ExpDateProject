@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content%}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand fs-2 fst-italic" href="#">ExpiryDateTracker</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="#instruction">Instructions</a>
+            </li>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="#help">Help</a>
+            </li>
+          </ul>
+          <a class="btm btn-primary" href="{% url 'userlogin' %}" style="color: black;margin-right:2rem;"> Login </a>
+            <a class="btm btn-primary" href="{% url 'usersignup' %}" style="color: black;margin-right:2rem;"> Signup </a>
+        </div>
+      </div>
+    </nav>
+
+
+   <div class="row" style="margin: 5rem 0rem 2rem 2rem">
+          <div class="col-md-6" style="margin: 2rem auto 0 auto">
+              <p class="display-4" id="about" name="about" style="text-align: center">About</p>
+              <hr>
+              <p class="lead" style="text-align: center">
+                  Our Expiry Date Tracker Application's aim is to stop wasting and support those who really need it.
+              </p>
+              {% load static %}
+              <img class="img-fluid" src="{% static 'logo3.jpg' %}">
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-6" style="margin: 2rem auto 0 auto">
+              <p class="display-4" id="instruction" name="instruction" style="text-align: center">Instructions</p>
+              <hr>
+              <ul class="list-group">
+                  <li class="list-group-item">1. Open an Account</li>
+                  <li class="list-group-item">2. Go to your profile and upload images</li>
+                  <li class="list-group-item">3. Visit the website once in a month to see expiry dates of products</li>
+                  <li class="list-group-item">4. If not required, give it away to someone near you</li>
+              </ul>
+          </div>
+      </div>
+    <div class="row">
+          <div class="col-md-6" style="margin: 2rem auto 0 auto">
+              <p class="display-4" id="polling" name="polling" style="text-align: center">User Chart</p>
+              <hr>
+             <div class="row">
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">State</th>
+                          <th scope="col">Count</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for key, value in states.items %}
+                        <tr>
+                          <td>{{forloop.counter}}</td>
+                          <td>{{key}}</td>
+                          <td>
+                              <div class="progress">
+                                  <div class="progress-bar" role="progressbar" style="width: {{value}}%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{value}}</div>
+                                </div>
+                          </td>
+                        </tr>
+                       {% endfor %}
+                      </tbody>
+                    </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+     <div class="row" style="margin-bottom: 3rem">
+          <div class="col-md-6" style="margin: 2rem auto 0 auto">
+              <p class="display-4" id="help" name="help" style="text-align: center">Help Section</p>
+              <hr>
+              <p class="lead" style="text-align: center">
+                  Contact us: +12 20999 21365,
+                  Email: expirydatetrack@org
+              </p>
+          </div>
+      </div>
+
+
+ {% endblock %}

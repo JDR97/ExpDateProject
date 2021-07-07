@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+<nav class="navbar navbar-dark bg-dark" style="margin-bottom:1rem">
+    <a class="navbar-brand" style="color: orange">Welcome,{{username}}</a>
+    <!--<form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>-->
+    <a class="fw-bold" href="{% url 'index' %}" style="color:white;font-size:25px; display:block"> Expiry Date Tracker </a>
+    <a class="btn btn-danger" href="{% url 'userlogout' %}" style="color: black;margin-right:2rem;"> Logout </a>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'userhome' %}"><i class="fa fa-fw fa-user"></i>Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'userhome' %}">Current List</a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'userhome' %}">New Entry</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'notification' %}">Notifications ({{messages.length}})</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'feed' %}">Feed</a>
+          </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container">
+  <div class="row">
+    {% for u in useraccnt %}
+    {% for n in nottexts %}
+    {% if u.name == n.receiver %}
+    <table class="table table-borderless">
+      <tr>
+      </tr>
+      <tr>
+        <td>From: {{n.sender}}</td>
+        <td class="space"></td>
+        <td>{{n.attime}}</td>
+        <td class="space"></td>
+        <td>{{n.message}}</td>
+      </tr>
+    </table>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

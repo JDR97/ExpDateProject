@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content%}
+<nav class="navbar navbar-dark bg-dark" style="margin-bottom:1rem">
+    <a class="navbar-brand" style="color: orange">Welcome,{{username}}</a>
+    <!--<form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>-->
+    <a class="fw-bold" href="{% url 'index' %}" style="color:white;font-size:25px; display:block"> Expiry Date Tracker </a>
+    <a class="btn btn-warning" href="{% url 'userlogout' %}" style="color: black;margin-right:-400px;"></i>Notifications</a>
+    <a class="btn btn-danger" href="{% url 'userlogout' %}" style="color: black;margin-right:2rem;"> Logout </a>
+</nav>
+
+<div class="container" style="margin: 0 auto 4rem auto">
+    <div class="row">
+        <div class="col-md-6" style="margin: 1rem auto 0 auto">
+        <div class="card">
+            <div class="card-body">
+                 <form method="POST" action="{% url 'editting' ownInfo.id %}" enctype="multipart/form-data">
+                     {% csrf_token %}
+
+                          <div class="form-group">
+                              <div class="mb-3 row">
+                                  <div class="col-sm-12" style="padding-left: 2rem">
+                                  <input type="text" class="form-control" id="name" name="name" placeholder="Name" value={{ownInfo.name}} disabled>
+                                  </div>
+                              </div>
+                              <div class="mb-3 row">
+                                  <div class="col-sm-12" style="padding-left: 2rem">
+                                  <input type="text" class="form-control" id="gender" name="gender" placeholder="Male/Female/Others"value={{ownInfo.gender}} disabled>
+                                  </div>
+                              </div>
+                              <div class="mb-3 row">
+                                  <div class="col-sm-12" style="padding-left: 2rem">
+                                  <input type="text" class="form-control" id="email" name="email" placeholder="Email" value={{ownInfo.email}} required>
+                                  </div>
+                              </div>
+                              <div class="mb-3 row">
+                                  <div class="col-sm-12" style="padding-left: 2rem">
+                                  <input type="text" class="form-control" id="contact" name="contact" placeholder="Contact Number" value={{ownInfo.contact}} required>
+                                  </div>
+                              </div>
+                              <div class="mb-3 row">
+                                  <div class="col-sm-12" style="padding-left: 2rem">
+                                  <input type="text" class="form-control" id="country" name="country" placeholder="Country"value={{ownInfo.country}} required>
+                                  </div>
+                              </div>
+                              <div class="mb-3 row">
+                                  <div class="col-sm-12" style="padding-left: 2rem">
+                                  <input type="text" class="form-control" id="state" name="state" placeholder="State" value={{ownInfo.state}} required>
+                                  </div>
+                              </div>
+                              <div class="mb-3 row">
+                                  <div class="col-sm-12" style="padding-left: 2rem">
+                                  <input type="text" class="form-control" id="pin" name="pin" placeholder="Pincode" value={{ownInfo.pincode}} required>
+                                  </div>
+                              </div>
+                              <div class="mb-3 row">
+                                  <div class="col-sm-12" style="padding-left: 2rem">
+                                  <input class="form-control form-control-sm" id="image"  name="image" placeholder="Upload your photo" type="file">
+                                  </div>
+                              </div>
+                          </div>
+                        <div class="form-group">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <input type="submit" class="btn btn-success" value="Done" style="margin: 2rem auto 0 auto; display:block;">
+                              </div>
+                               <div class="col-md-6">
+                                   <input type="reset" class="btn btn-primary" style="margin: 2rem auto 0 auto; display:block;">
+                              </div>
+                          </div>
+                          </div>
+                 </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

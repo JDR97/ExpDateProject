@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+<nav class="navbar navbar-dark bg-dark" style="margin-bottom:1rem">
+    <a class="navbar-brand" style="color: orange">Welcome,{{username}}</a>
+    <!--<form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>-->
+    <a class="fw-bold" href="{% url 'index' %}" style="color:white;font-size:25px; display:block"> Expiry Date Tracker </a>
+    <a class="btn btn-danger" href="{% url 'userlogout' %}" style="color: black;margin-right:2rem;"> Logout </a>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#profile"><i class="fa fa-fw fa-user"></i>Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#mylist">Current List</a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#newentry">New Entry</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'notification' %}">Notifications ()</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'feed' %}">Feed</a>
+          </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid" style="display:block">
+    <div class="row">
+        <p class="display-4" id="profile" name="profile" style="text-align: center">Profile</p>
+        <form method="POST" action=" ">
+            {% csrf_token %}
+        {% for info in ownInfo %}
+              {% if info.username == username %}
+        <div class="card" style="width: 350px; margin:auto;display:block">
+
+          <img src="{% static 'defaultpicture.jpg' %}" class="card-img-top" alt="{{info.image.url}}">
+          <div class="card-body">
+            <h5 class="card-title">{{info.name}}</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Email: {{info.email}}</li>
+            <li class="list-group-item">Username: {{info.username}}</li>
+            <li class="list-group-item">Contact: {{info.contact}}</li>
+              <li class="list-group-item">Place: {{info.state}}, {{info.country}}</li>
+          </ul>
+          <div class="card-body">
+            <a href="{% url 'edituser' info.id %}" class="card-link">Update profile</a>
+            <a href="{% url 'deleteuser' info.id %}" class="card-link">Delete profile</a>
+          </div>
+        </div>
+            {% endif %}
+            {% endfor %}
+        </form>
+    </div>
+</div>
+
+<div class="row">
+          <div class="col-md-6" style="margin: 2rem auto 0 auto">
+              <p class="display-4" id="mylist" name="mylist" style="text-align: center">Current List</p>
+              <hr>
+              <table class="table align-middle" style="width:140%;">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Product Name</th>
+                      <th class="space"></th>
+                    <th>Entry Date</th>
+                      <th class="space"></th>
+                    <th>Product Images</th>
+                      <th class="space"></th>
+                      <th>                    </th>
+                      <th class="space"></th>
+                      <th>    Delete</th>
+                      <th class="space"></th>
+                      <th>Share</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for prod in productInfo %}
+                    {% if prod.uname == username %}
+                    <tr>
+                        <td>{{prod.pname}}</td>
+                        <td class="space"></td>
+                        <td>{{prod.pdate}}</td>
+                        <td class="space"></td>
+                        {% for i in list_product %}
+                            {% if username in i %}
+                            {% if prod.pname in i %}
+                                        <td>
+                                            {% if '_0' in i %}
+                                            <img src="{% static 'users/' %}{{pathpart}}{{i}}" class="card-img-top" alt="{{imgpath}}{{i}}" border=1 height=130 width=300/>
+                                        </td>
+                                        <td>
+                                            {% elif '_1' in i %}
+                                            <img src="{% static 'users/' %}{{pathpart}}{{i}}" class="card-img-top" alt="{{username}}/products/{{i}}" border=1 height=130 width=400/>
+                                        </td>
+                                        <td class="space"></td>
+                                            {% endif %}
+                            {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        <td><a href="{% url 'deleteproduct' prod.id %}" class="btn btn-danger">delete</a></td>
+                        <td class="space"></td>
+                        <td><a href="{% url 'shareproduct' prod.id %}" class="btn btn-warning">Share</a></td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+              </table>
+          </div>
+</div>
+
+<div class="row" style="margin-bottom:3rem">
+          <div class="col-md-6" style="margin: 2rem auto 0 auto">
+              <p class="display-4" id="newentry" name="newentry" style="text-align: center">New Entry</p>
+              <hr>
+              <div class="card">
+                  <div class="card-body">
+                      <form method="POST" action="{% url 'productentry' %}" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <div class="form-group">
+                                <div id="products">
+                                    <input type="text" name="uname" class="form-control" value={{username}} placeholder="User Name"/>
+                                    <input type="text" name="prodname" class="form-control" placeholder="Product name"/>
+                                    <input type="datetime-local" name="proddate" class="form-control" placeholder="Date"/>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <input type="submit" class="btn btn-success" id="add" value="Add"></input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                      </form>
+                      <form method="POST" action="" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <div class="form-group">
+                          <div class="row mt-2">
+                               <div class="col-md-6">
+                                   <button onclick="location.href='{% url 'newentry' %}'">Take Photo</button>
+                               </div>
+                          </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+</div>
+
+
+
+{% endblock %}

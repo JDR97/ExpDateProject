@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Expiry Date Tracker</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa fa-fw fa-user"></i>Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">My List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">New Entry</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa fa-fw fa-bell"></i>Notification</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Logout</a>
+          </li>
+          </ul>
+          </div>
+          </div>
+          </nav>
+  
+ 
+  
+  
+</div>
+<h2>
+<p style="text-align:center; margin-top: 25px; color: orange;" >Profile Details</p>
+</h2>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Image</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Dolo 650</td>
+        <td>12-05-2022</td>
+        <td> <img src="F:\dolo.jpeg" alt="dolo" width="75" height="50" ></td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Limcee</td>
+        <td>15-05-2023</td>
+        <td> <img src="F:\limcee.jpeg" alt="limce" width="75" height="50"> </td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Zincovit</td>
+        <td>30-10-2022</td>
+        <td> <img src="F:\zinc.jpeg" alt="zin" width="75" height="50" </td>
+      </tr>
+    </tbody>
+  </table>
+
+{% endblock %}

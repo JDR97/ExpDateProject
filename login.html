@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %} Signin Page {% endblock %}
+{% block content%}
+<div class="container-fluid" style="margin: 5rem 0rem 0rem 2rem">
+    <h1 class="text-center" style="color: blue"> Login </h1>
+</div>
+ <div class="container-fluid" style="margin: 5rem 0rem 2rem 2rem">
+      <div class="row">
+         <div class="col-md-6" style="margin: 1rem auto 0 auto">
+              <div class="card">
+                  <div class="card-body">
+                      <form method="POST" action="{% url 'userauth' %}">
+                          {% csrf_token %}
+                          <div class="form-group">
+                              <div class="mb-3">
+                              <label for="username" class="form-label fw-bold">Username:</label>
+                              <input type="text" class="form-control" id="username" name="userlog" placeholder="Enter username">
+                              </div>
+                              <div class="mb-3">
+                              <label for="password" class="form-label fw-bold">Password:</label>
+                              <input type="password" class="form-control" id="password" name="passlog" placeholder="Enter password">
+                              </div>
+                              <div class="mb-3">
+                              <a href="">Forget the password?</a>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <input type="submit" class="btn btn-success" style="margin: 2rem auto 0 auto; display:block;">
+                              </div>
+                               <div class="col-md-6">
+                                   <input type="reset" class="btn btn-primary" style="margin: 2rem auto 0 auto; display:block;">
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-4">
+                              </div>
+                              <div class="col-md-4">
+                              <div class="mb-3 ps-5">
+                              <a href="{% url 'signings' %}">  new user?Sign Up</a>
+                              </div>
+                              </div>
+                              <div class="col-md-4">
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+{% for msg in messages %}
+    <p style="text-align: center; color: red">{{msg}}</p>
+{% endfor %}
+
+{% endblock %}
